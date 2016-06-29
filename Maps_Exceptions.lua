@@ -1,4 +1,14 @@
-
+-- ESSENTIALS --
+-- IN RECTANGLE --
+function inRectangle(UpperX, UpperY, LowerX, LowerY)
+	ActX = getPlayerX()
+	ActY = getPlayerY()
+	if (ActX >= UpperX and ActX <= LowerX) and (ActY >= UpperY and ActY <= LowerY) then
+		return true
+	else
+		return false
+	end
+end
 
 -- CHECK EXCEPTION MAP1 TO MAP2    - IF FOUND CALL RESOLUTION EXCEPTION
 function CheckException(EMap)
