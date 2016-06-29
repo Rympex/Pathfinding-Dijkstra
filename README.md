@@ -9,4 +9,6 @@ HoeenMap: Done 0% (I have not seen this map)
 
 To do:
 
-+Add the requirements for maps (Example: route 17 is only used if you have the mount in the inventory)
++Add the requirements for maps (Example: route 17 is only used if you have the mount in the inventory) 75% done
++Add the MemoryPath (Store in memory path already calc, for speedup the process) 50% done
++Add the Auto-Harvest (Berry - Hidden Items - Items) can be Disable with [AutoHarvest = False] 25% done
