@@ -10,7 +10,7 @@ function onPathAction()
 end
 
 function onBattleAction()
-	return
+	run()
 end
 
 function onDialogMessage(message)
