@@ -14,3 +14,9 @@ To do:
 +Add the MemoryPath (Store in memory path already calc, for speedup the process) 50% done
 
 +Add the Auto-Harvest (Berry - Hidden Items - Items) can be Disable with [AutoHarvest = False] 25% done
+
+
+
+Contributors:
+
+@Thanks NyK for the Dijkstra code <3
