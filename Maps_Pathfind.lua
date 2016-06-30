@@ -1,4 +1,3 @@
-MemoryPathSolution = {}
 PathSolution = {}
 
 MapException_Lib = require "Maps_Exceptions"
@@ -153,18 +152,17 @@ function MoveTo(Destination)
 	if PathDestStore == Destination then
 		MoveWithCalcPath()	
 	else
-		if CheckMemoryPath(getMapName() .. "_to_" .. Destination,getMapName(),Destination) == true then
-			log1time("Found this Path in memory, Restoring..")
-			PathSolution = MemoryPathSolution[getMapName() .. "_to_" .. Destination]
-		else
-			PathSolution = moveToDestination(getMapName(), Destination)				
-		end
+		if not moveToDestination(getMapName(), Destination) == false then
+			PathSolution = moveToDestination(getMapName(), Destination)
 			PathDestStore = Destination
-		for i=0,15 do
+			for i=0,15 do
 			EditPathGenerated()
+			end
+			log("Percorso: " .. table.concat(PathSolution,"->"))
+			MoveWithCalcPath()	
+		else
+			fatal("Path Not Found ERROR")
 		end
-		log("Percorso: " .. table.concat(PathSolution,"->"))
-		MoveWithCalcPath()	
 	end
 end
 
@@ -198,28 +196,41 @@ function MovingApply(ToMap)
 	end
 end
 
-function CheckMemoryPath(PathCode,currentPosition,finalPosition)
-	local FindPath = false
-	for Pathx in pairs(MemoryPathSolution) do
-		if PathCode == Pathx then
-			FindPath = true
-			return true
-		end
-	end
-	if FindPath == false then
-		MemoryPathSolution[PathCode] = initDij(currentPosition, finalPosition, KantoMap)
+function moveToDestination(currentPosition, finalPosition)
+	--local path = getShortestPath(KantoMap, currentPosition, finalPosition, {})
+	local path = initDij(currentPosition, finalPosition, KantoMap)
+	if tablelength(path) == 0 then
 		return false
 	else
-		return true
-	end
+		return path
+	end	
 end
 
 
-function moveToDestination(currentPosition, finalPosition)
-local Path = initDij(currentPosition, finalPosition, KantoMap)
-	if tablelength(Path) == 0 then
-		return false
+-- ESSENTIAL FUNCTIONS --
+
+-- STRING SPLIT --> RETURN ARRAY TABLE --
+function splitstring(s, delimiter)
+    result = {}
+    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+        table.insert(result, match)
+    end
+    return result
+end
+
+-- TABLE LENGTH --
+function tablelength(T)
+  local count = 0
+  for _ in pairs(T) do count = count + 1 end
+  return count
+end
+
+-- LOG 1 TIME ONLY --
+LastMessage = ""
+function log1time(msg)
+	if LastMessage == msg then
 	else
-		return Path
+		log(msg)
+		LastMessage = msg
 	end
 end
