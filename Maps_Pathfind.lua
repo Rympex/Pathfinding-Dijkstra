@@ -1,7 +1,8 @@
+MemoryPathSolution = {}
+PathSolution = {}
 
-
-MapException_Lib = require "Maps_Exceptions"
-KantoMap = require "Kanto/KantoMap"
+MapException_Lib = require "Libs/Lib_Maps/Maps_Exceptions"
+KantoMap = require "Libs/Lib_Maps/Kanto/KantoMap"
 
 -----------------------------------
 --- DIJKSTRA CODE PATHFINDING   ---
@@ -152,17 +153,18 @@ function MoveTo(Destination)
 	if PathDestStore == Destination then
 		MoveWithCalcPath()	
 	else
-		if not moveToDestination(getMapName(), Destination) == false then
-			PathSolution = moveToDestination(getMapName(), Destination)
-			PathDestStore = Destination
-			for i=0,15 do
-			EditPathGenerated()
-			end
-			log("Percorso: " .. table.concat(PathSolution,"->"))
-			MoveWithCalcPath()	
+		if CheckMemoryPath(getMapName() .. "_to_" .. Destination,getMapName(),Destination) == true then
+			log1time("Found this Path in memory, Restoring..")
+			PathSolution = MemoryPathSolution[getMapName() .. "_to_" .. Destination]
 		else
-			fatal("Path Not Found ERROR")
+			PathSolution = moveToDestination(getMapName(), Destination)				
 		end
+			PathDestStore = Destination
+		for i=0,15 do
+			EditPathGenerated()
+		end
+		log("Percorso: " .. table.concat(PathSolution,"->"))
+		MoveWithCalcPath()	
 	end
 end
 
@@ -196,41 +198,28 @@ function MovingApply(ToMap)
 	end
 end
 
-function moveToDestination(currentPosition, finalPosition)
-	--local path = getShortestPath(KantoMap, currentPosition, finalPosition, {})
-	local path = initDij(currentPosition, finalPosition, KantoMap)
-	if tablelength(path) == 0 then
+function CheckMemoryPath(PathCode,currentPosition,finalPosition)
+	local FindPath = false
+	for Pathx in pairs(MemoryPathSolution) do
+		if PathCode == Pathx then
+			FindPath = true
+			return true
+		end
+	end
+	if FindPath == false then
+		MemoryPathSolution[PathCode] = initDij(currentPosition, finalPosition, KantoMap)
 		return false
 	else
-		return path
-	end	
+		return true
+	end
 end
 
 
--- ESSENTIAL FUNCTIONS --
-
--- STRING SPLIT --> RETURN ARRAY TABLE --
-function splitstring(s, delimiter)
-    result = {}
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match)
-    end
-    return result
-end
-
--- TABLE LENGTH --
-function tablelength(T)
-  local count = 0
-  for _ in pairs(T) do count = count + 1 end
-  return count
-end
-
--- LOG 1 TIME ONLY --
-LastMessage = ""
-function log1time(msg)
-	if LastMessage == msg then
+function moveToDestination(currentPosition, finalPosition)
+local Path = initDij(currentPosition, finalPosition, KantoMap)
+	if tablelength(Path) == 0 then
+		return false
 	else
-		log(msg)
-		LastMessage = msg
+		return Path
 	end
 end
