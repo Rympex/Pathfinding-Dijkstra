@@ -1,8 +1,8 @@
 MemoryPathSolution = {}
 PathSolution = {}
 
-MapException_Lib = require "Libs/Lib_Maps/Maps_Exceptions"
-KantoMap = require "Libs/Lib_Maps/Kanto/KantoMap"
+MapException_Lib = require "Maps_Exceptions"
+KantoMap = require "Kanto/KantoMap"
 
 -----------------------------------
 --- DIJKSTRA CODE PATHFINDING   ---
