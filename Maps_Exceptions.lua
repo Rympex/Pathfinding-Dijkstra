@@ -150,7 +150,7 @@ DescMaps = {}
 
 -- DIGLETTS CAVE (VIRIDIAN OR PEWTER CITY)
 DescMaps["Route 2_to_Digletts Cave Entrance 1"] = {function() Mode_MoveToCell("Route 2", 6,0,44,90,33,31) end,function() Mode_MoveToCell("Route 2", 3,95,45,130,40,96) end}
-DescMaps["Route 2 Stop3_to_Digletts Cave Entrance 1"] = {function() Mode_MoveToCell("Route 2 Stop3", 0,2,7,12,4,12) end}
+DescMaps["Route 2 Stop3_to_Digletts Cave Entrance 1"] = {function() Mode_MoveToCell("Route 2 Stop3", 0,2,7,12,3,2) end}
 
 -- ROUTE 2 GO TO (VIRIDIAN OR PEWTER)
 DescMaps["Route 2_to_Pewter City"] = {function() Mode_MoveToCell("Route 2", 6,0,44,90,25,0) end,function() Mode_MoveToCell("Route 2", 3,95,45,130,40,96) end}
