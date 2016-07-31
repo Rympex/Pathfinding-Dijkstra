@@ -225,9 +225,3 @@ DescMaps["Safari Effort Wald 1_to_Safari Stop"] = {function() Mode_SpeakWithNPC(
 
 --DescMaps[" "] = {function() Mode_MoveToCell(" ", ,,,,,) end}
 --DescMaps[" "] = {function() Mode_SpeakWithNPC("","",{},,,,) end}
-
-
-
-
-
-
